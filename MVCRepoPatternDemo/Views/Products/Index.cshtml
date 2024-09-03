@@ -1,0 +1,59 @@
+﻿@model IEnumerable<MVCRepoPatternDemo.Models.ProductCl>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <form method="get" action="@Url.Action("Search")">
+        <input type="text" name="searchTerm" placeholder="Search products..." />
+        <button type="submit">Search</button>
+    </form>
+</p>
+
+<p>
+    <!-- Filter Form -->
+    <form method="get" action="@Url.Action("Filter")">
+        <div class="form-group">
+            <label for="minPrice">Min Price</label>
+            <input type="number" name="minPrice" class="form-control" step="0.01" />
+        </div>
+        <div class="form-group">
+            <label for="maxPrice">Max Price</label>
+            <input type="number" name="maxPrice" class="form-control" step="0.01" />
+        </div>
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </form>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                    <a asp-action="Edit" asp-route-id="@item.ProId" class="btn btn-outline-info">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ProId" class="btn btn-outline-warning">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ProId" class="btn btn-outline-danger">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
